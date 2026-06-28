@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Category — Abiotic Factor Guide Wiki</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0f1117] text-[#e8edf2]">
+
+<main class="max-w-6xl mx-auto px-4 py-8" id="category-content">
+  <div class="text-center py-20">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#f59e0b] mx-auto"></div>
+    <p class="text-[#9ca3af] mt-3">Loading articles...</p>
+  </div>
+</main>
+
+<script src="js/main.js"></script>
+<script>
+// Article data
+const ALL_ARTICLES = [
+  {
+    id: 'post-survive-first-night',
+    title: 'How to Survive Your First Night in Abiotic Factor',
+    category: 'getting-started',
+    categoryLabel: 'Getting Started',
+    categoryColor: 'green',
+    date: '2025-11-08',
+    excerpt: 'Step-by-step survival guide for new players. Learn where to find food, how to craft your first weapon, secure a safe room, and survive until morning in the GATE Facility.',
+    image: '🌙',
+    keywords: 'first night, beginner guide, survival, new player'
+  },
+  {
+    id: 'post-understanding-stats',
+    title: 'Understanding Stats, Traits, and Character Builds',
+    category: 'getting-started',
+    categoryLabel: 'Getting Started',
+    categoryColor: 'green',
+    date: '2025-11-10',
+    excerpt: 'Complete breakdown of every character stat, trait synergy, and the best builds for solo players and co-op teams.',
+    image: '📊',
+    keywords: 'stats, traits, character build, attributes'
+  },
+  {
+    id: 'post-base-building',
+    title: 'Base Building 101: Where and How to Set Up Your First Base',
+    category: 'getting-started',
+    categoryLabel: 'Getting Started',
+    categoryColor: 'green',
+    date: '2025-11-14',
+    excerpt: 'Best base locations, essential workstations, power management, and defense tips for a secure workshop in the early sectors.',
+    image: '🏗️',
+    keywords: 'base building, safe room, crafting base, workshop'
+  },
+  {
+    id: 'post-best-weapons',
+    title: 'All Weapons Ranked: Best Guns and Melee in Abiotic Factor',
+    category: 'weapons-gear',
+    categoryLabel: 'Weapons & Gear',
+    categoryColor: 'red',
+    date: '2025-11-15',
+    excerpt: 'Complete weapon tier list with damage stats, DPS comparisons, spawn locations, and build recommendations for every playstyle — melee, ranged, and energy weapons.',
+    image: '⚔️',
+    keywords: 'weapons, best weapons, tier list, guns, melee, damage'
+  },
+  {
+    id: 'post-best-armor',
+    title: 'Best Armor Sets: Defense, Resistances, and Set Bonuses',
+    category: 'weapons-gear',
+    categoryLabel: 'Weapons & Gear',
+    categoryColor: 'red',
+    date: '2025-11-11',
+    excerpt: 'Every armor set ranked — damage resistance comparison, radiation protection, cold insulation, and hidden set bonuses revealed.',
+    image: '🛡️',
+    keywords: 'armor, defense, resistance, set bonus, protection'
+  },
+  {
+    id: 'post-security-robot-boss',
+    title: 'How to Defeat the Security Robot: Complete Boss Strategy',
+    category: 'boss-guides',
+    categoryLabel: 'Boss Guides',
+    categoryColor: 'purple',
+    date: '2025-11-12',
+    excerpt: 'Attack patterns, weak spots, best weapons, and cheese strategies for every Security Robot variant — Patrol Bot, Heavy Bot, and the Mounted Turret.',
+    image: '🤖',
+    keywords: 'security robot, boss guide, patrol bot, turret, boss strategy'
+  },
+  {
+    id: 'post-abomination-boss',
+    title: 'Abomination Boss Fight: Phases, Patterns, and Survival',
+    category: 'boss-guides',
+    categoryLabel: 'Boss Guides',
+    categoryColor: 'purple',
+    date: '2025-11-09',
+    excerpt: 'Detailed phase-by-phase breakdown of the Abomination boss. When to dodge, when to attack, and how to manage the adds in each phase.',
+    image: '👹',
+    keywords: 'abomination, boss fight, phases, boss strategy'
+  },
+  {
+    id: 'post-scientist-boss',
+    title: 'The Corrupted Scientist: Stealth vs Combat Approach',
+    category: 'boss-guides',
+    categoryLabel: 'Boss Guides',
+    categoryColor: 'purple',
+    date: '2025-11-13',
+    excerpt: 'Two ways to handle the Corrupted Scientist encounter — a full stealth walkthrough and a direct combat strategy with recommended loadouts.',
+    image: '🧪',
+    keywords: 'corrupted scientist, boss, stealth, combat'
+  },
+  {
+    id: 'post-crafting-recipes',
+    title: 'Essential Crafting Recipes and Material Farming Routes',
+    category: 'crafting',
+    categoryLabel: 'Crafting',
+    categoryColor: 'blue',
+    date: '2025-11-10',
+    excerpt: 'Every essential crafting recipe with material requirements, plus optimized farming routes for rare resources across all sectors.',
+    image: '🔧',
+    keywords: 'crafting, recipes, materials, farming, resources'
+  },
+  {
+    id: 'post-hidden-mechanics',
+    title: '20 Hidden Mechanics the Game Doesn\'t Tell You About',
+    category: 'tips-tricks',
+    categoryLabel: 'Tips & Tricks',
+    categoryColor: 'yellow',
+    date: '2025-11-14',
+    excerpt: 'Secret interactions, undocumented mechanics, inventory tricks, enemy AI exploits, and obscure survival tips that veteran players use.',
+    image: '💡',
+    keywords: 'hidden mechanics, tips, tricks, secrets, advanced'
+  }
+];
+
+// Category metadata
+const CATEGORY_META = {
+  'getting-started': {
+    title: '🔰 Getting Started',
+    description: 'New to the GATE Facility? Start here. Beginner tutorials, first-hour survival tips, and essential mechanics explained for new players.',
+    keywords: 'Abiotic Factor beginner guide, getting started, new player guide'
+  },
+  'weapons-gear': {
+    title: '⚔️ Weapons & Gear',
+    description: 'Weapon stats, tier rankings, best loadouts, armor comparisons, and gear spawn locations. Optimize your loadout for every sector.',
+    keywords: 'Abiotic Factor weapons, best weapons, gear guide, armor sets'
+  },
+  'boss-guides': {
+    title: '🐉 Boss Guides',
+    description: 'In-depth boss strategies — attack patterns, weakness exploitation, recommended loadouts, and cheese tactics for every boss encounter.',
+    keywords: 'Abiotic Factor boss guide, boss strategy, how to beat bosses'
+  },
+  'crafting': {
+    title: '🔧 Crafting & Resources',
+    description: 'Complete crafting recipes, material farming routes, and base-building optimization. Craft smarter, survive longer.',
+    keywords: 'Abiotic Factor crafting, recipes, materials, farming guide'
+  },
+  'tips-tricks': {
+    title: '💡 Tips & Tricks',
+    description: 'Hidden mechanics, veteran shortcuts, optimization secrets, and lesser-known survival strategies from the community.',
+    keywords: 'Abiotic Factor tips, tricks, secrets, advanced strategies'
+  }
+};
+
+function getQueryParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+function renderCategory() {
+  const cat = getQueryParam('cat') || 'getting-started';
+  const meta = CATEGORY_META[cat] || CATEGORY_META['getting-started'];
+  const articles = ALL_ARTICLES.filter(a => a.category === cat);
+
+  // Update meta
+  document.title = `${meta.title} — Abiotic Factor Guide Wiki`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (!metaDesc) {
+    const m = document.createElement('meta');
+    m.name = 'description';
+    m.content = `Abiotic Factor ${meta.title.toLowerCase()} — ${meta.description}`;
+    document.head.appendChild(m);
+  }
+  const metaKw = document.querySelector('meta[name="keywords"]');
+  if (!metaKw) {
+    const m = document.createElement('meta');
+    m.name = 'keywords';
+    m.content = meta.keywords;
+    document.head.appendChild(m);
+  }
+
+  const container = document.getElementById('category-content');
+  container.innerHTML = `
+    <!-- Breadcrumb -->
+    <div class="breadcrumb mb-6">
+      <a href="index.html">Home</a> <span>/</span> <span>${meta.title}</span>
+    </div>
+
+    <!-- Category Header -->
+    <div class="bg-[#1e2130] border border-[#2a2d3a] rounded-xl p-6 sm:p-8 mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3">${meta.title}</h1>
+      <p class="text-[#9ca3af] text-lg max-w-3xl">${meta.description}</p>
+      <p class="text-sm text-[#9ca3af] mt-3">${articles.length} article${articles.length !== 1 ? 's' : ''} in this category</p>
+    </div>
+
+    <!-- Article List -->
+    <div class="space-y-4">
+      ${articles.map(a => `
+        <a href="${a.id}.html" class="block bg-[#1e2130] border border-[#2a2d3a] rounded-xl p-5 hover:border-[#f59e0b] transition-all group">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-14 h-14 bg-[#0f1117] rounded-xl flex items-center justify-center text-2xl">${a.image}</div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs px-2 py-0.5 bg-${a.categoryColor}-500/20 text-${a.categoryColor}-400 rounded-full font-semibold">${a.categoryLabel}</span>
+                <span class="text-xs text-[#9ca3af]">${window.formatDate(a.date)}</span>
+              </div>
+              <h3 class="font-bold text-lg group-hover:text-[#f59e0b] transition-colors">${a.title}</h3>
+              <p class="text-sm text-[#9ca3af] mt-1">${a.excerpt}</p>
+            </div>
+          </div>
+        </a>
+      `).join('')}
+    </div>
+  `;
+}
+
+renderCategory();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://abioticfactor-guide.com/sitemap.xml
+
+# Crawl-delay: 10 (uncomment if server load is high)
+
+# Disallow admin/internal paths (none currently)
+# Disallow: /admin/
